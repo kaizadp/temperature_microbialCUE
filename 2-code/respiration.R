@@ -2,7 +2,7 @@
 library(tidyverse)
 library(readxl)   
 library(data.table)
-
+theme_set(theme_bw())
 
 # load files --------------------------------------------------------------
 # the data are spread across multiple tabs (wtf)
@@ -19,7 +19,7 @@ read_excel_allsheets <- function(filename, tibble = TRUE) {
   x
 }
 
-resp = read_excel_allsheets("1-data/respiration copy.xlsx")
+resp = read_excel_allsheets("1-data/respiration_data.xlsx")
 # turn into dataframe
 resp_df = rbindlist(resp, use.names = FALSE)
 resp_df2 = 
@@ -45,7 +45,7 @@ read_excel_allsheets_bg <- function(filename, tibble = TRUE) {
   x
 }
 
-bg = read_excel_allsheets_bg("1-data/respiration copy.xlsx")
+bg = read_excel_allsheets_bg("1-data/respiration_data.xlsx")
 
 bg_df = rbindlist(bg)
 bg_df2 = 
@@ -69,7 +69,10 @@ respiration_processed =
          CO2_ppm = as.numeric(CO2_ppm),
          minutes_incubated = as.numeric(minutes_incubated),
          CO2_bg_corrected = CO2_ppm - background_ppm,
-         CO2_min = CO2_bg_corrected/minutes_incubated) %>% 
+         CO2_bg_corrected2 = CO2_ppm - 480,
+         CO2_min = CO2_bg_corrected/minutes_incubated,
+         CO2_min2 = CO2_bg_corrected2/minutes_incubated
+         ) %>% 
   rename(day = source) %>% 
   mutate(Sample2 = Sample) %>% 
   separate(Sample2, sep = "_", into = c("vial", "temp", "T"))
@@ -81,6 +84,25 @@ respiration_processed %>%
   #geom_point()+
   geom_line()+
   facet_grid(temp ~ .)
+
+
+
+respiration_processed %>% 
+  ggplot(aes(x = day, y = CO2_min2,
+             color = vial))+
+  #geom_point()+
+  geom_line()+
+  facet_grid(temp ~ .)
+
+respiration_processed %>% 
+  filter(!grepl("B", vial)) %>% 
+  ggplot(aes(x = day, y = CO2_min2,
+             color = temp))+
+  #geom_point()+
+  geom_line(aes(group = vial), alpha = 0.2)+
+  geom_smooth(size = 2, se = FALSE)+
+#  facet_grid(temp ~ .)+
+  NULL
 
 
 ### KFP 2022-04-07. check bg CO2 values!
