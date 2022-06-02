@@ -1,0 +1,193 @@
+---
+title: "FTICR results"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE,
+                      comment = "#>"
+                      #fig.path = ("markdown-figs/fticr2/")
+                      )
+```
+
+---
+
+## I. Metabolomics (21T)
+
+<details>   
+   <summary>click to expand</summary>
+
+
+### Van Krevelen Domains
+```{r, fig.width=5, fig.height=5}
+readd(gg_vankrevelen_domains)
+```
+
+---
+
+
+### Van Krevelen Diagrams
+
+All molecules identified
+
+```{r, fig.width=9, fig.height=5}
+readd(gg_vankrevelens)
+```
+
+Unique molecules per temperature/CUE
+
+```{r, fig.width=10}
+readd(gg_vankrevelen_unique)
+```
+
+---
+
+### Relative Abundance
+
+```{r}
+readd(gg_relabund_bar)
+```
+
+
+---
+
+### PERMANOVA
+
+```{r}
+readd(fticr_permanova) %>% knitr::kable()
+```
+
+### PCA
+```{r}
+readd(gg_pca)
+```
+
+
+  </summary>
+</details>
+
+
+---
+
+## II. Lipidomics (12T)
+
+<details>   
+   <summary>click to expand</summary>
+
+### Van Krevelen Domains
+```{r, fig.width=5, fig.height=5}
+readd(gg_vankrevelen_domains_lipid)
+```
+
+---
+
+### Van Krevelen Diagrams
+
+All molecules identified
+
+```{r, fig.width=9, fig.height=5}
+readd(gg_vankrevelens_lipid)
+```
+
+Unique molecules per temperature/CUE
+
+```{r, fig.width=10}
+readd(gg_vankrevelen_unique_lipid)
+```
+
+---
+
+### Relative Abundance
+
+```{r}
+readd(gg_relabund_bar_lipid)
+```
+
+---
+
+### PERMANOVA
+
+```{r}
+readd(lipid_permanova) %>% knitr::kable()
+```
+
+```{r}
+## PCA
+# readd(gg_pca)
+```
+
+  </summary>
+</details>
+
+--- 
+
+
+## III. Metabolomics (12T)
+
+<details>   
+   <summary>click to expand</summary>
+
+### Van Krevelen Domains
+```{r, fig.width=5, fig.height=5}
+readd(gg_vankrevelen_domains_12T)
+```
+
+---
+
+### Van Krevelen Diagrams
+
+All molecules identified
+
+```{r, fig.width=9, fig.height=5}
+readd(gg_vankrevelens_12T)
+```
+
+Unique molecules per temperature/CUE
+
+```{r, fig.width=10}
+readd(gg_vankrevelen_unique_12T)
+```
+
+---
+
+### Relative Abundance
+
+```{r}
+readd(gg_relabund_bar_12T)
+```
+
+---
+
+### PERMANOVA
+
+```{r}
+readd(permanova_12T) %>% knitr::kable()
+```
+
+```{r}
+## PCA
+readd(gg_pca_12T)
+```
+
+  </summary>
+</details>
+
+--- 
+
+---
+
+## Session Info
+
+<details>   
+   <summary>click to expand</summary>
+
+Date run: `r Sys.Date()`
+
+```{r}
+sessionInfo()
+```
+
+</details>   
